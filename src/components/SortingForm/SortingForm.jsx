@@ -1,0 +1,56 @@
+import { Controller, useForm } from 'react-hook-form'
+import Select from '../Select/Select'
+import Button from '../Button/Button'
+import { forwardRef } from 'react'
+import '../../index.css'
+
+const SortingForm = ({sortByOptions,sortOptions,onSubmitFn,...props},ref) => {
+
+    const { register, control, handleSubmit } = useForm()
+
+    const onSubmit = (formData) => {
+        onSubmitFn && onSubmitFn(formData)
+    }
+
+
+    return (
+        <div className='bg-primary-light dark:bg-black-40 p-4 rounded-md w-[300px] xs:w-[380px] sm:w-[500px]'>
+            <form className='px-2 py-4' onSubmit={handleSubmit(onSubmit)}>
+                <h2 className='text-2xl font-medium tex-black-100 dark:text-primary-light mb-4'>Сортровка</h2>
+                <div className='flex flex-col'>
+                    <div className='mb-4'>
+                        <Controller
+                            render={({ field }) => <Select {...field} optionValue="value" options={sortByOptions} 
+                            label="Поле сортировки"
+                            fullWidth
+                            size="small"
+                            />}
+                            name="sortBy"
+                            control={control}
+                            defaultValue=""
+                        />
+                    </div>
+                    <div>
+                        <Controller
+                            render={({ field }) => <Select {...field} optionValue="value" options={sortOptions} 
+                            label="Тип сортировки"
+                            fullWidth
+                            size="small"
+                            />}
+                            name="sort"
+                            control={control}
+                            defaultValue=""
+                        />
+                    </div>
+                </div>
+                <div className='mt-4'>
+                    <Button type="submit">
+                        Отправить
+                    </Button>
+                </div>
+            </form>
+        </div>
+    )
+}
+
+export default forwardRef(SortingForm)
