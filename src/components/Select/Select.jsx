@@ -1,11 +1,12 @@
 import { InputAdornment, MenuItem, TextField } from '@mui/material';
 import {forwardRef} from 'react'
+import useAppStore from '../../store/store';
 
 
 const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSize, iconClass, errorMessage,multiple,minWidth,maxWidth, ...props },ref) => {
 
-    // const mode = useAppStore(state => state.mode)
-    const mode = props.mode ? props.mode : 'light';
+    const mode = useAppStore(state => state.mode)
+    //const mode = props.mode ? props.mode : 'light';
 
     const Icon = icon;
 
@@ -91,7 +92,7 @@ const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSi
             {
                 options?.length > 0 ? options.map((option) => (
                     <MenuItem
-                        key={option.id}
+                        key={option.id ? option.id : option.value}
                         value={option[optionValue]}
                     >
                         {option.label ? option.label : option.value}

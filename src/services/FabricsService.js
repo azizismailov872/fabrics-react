@@ -11,8 +11,14 @@ const instance = axios.create({
 
 
 export const FabricsService = {
-    getFabricsList: async(searchParams) => {
-        const baseUrl = !isEmpty(searchParams) ? `/api/fabrics/filtered?${searchParams}&` : '/api/fabrics'
+    getFabricsList: async(searchParams,sortModel) => {
+        const baseUrl = !isEmpty(searchParams) ? `/api/fabrics/filtered?${searchParams}&` : `/api/fabrics${sortModel ? '?' : ''}`
+
+        if(sortModel) {
+            const response = await instance.get(`${baseUrl}sortBy=${sortModel.sortBy}&sort=${sortModel.sort}`)
+
+            return response
+        }
 
         const response = await instance.get(baseUrl)
 

@@ -5,14 +5,15 @@ import { FabricsService } from '../../../services/FabricsService'
 import Panel from '../../../components/Panel/Panel'
 import FilterForm from '../../../components/FilterForm/FilterForm'
 import DataTable from '../../../components/DataTable/DataTable'
-import { dataTableColumns, filterFields, visibilityFormFields } from '../data'
+import { dataTableColumns, filterFields, visibilityFormFields,defaultVisibleColumns,defaultSortingModel,sortByOptions,sortOptions } from '../data'
 import { isEmpty } from 'lodash'
 import useModal from '../../../hooks/useModal'
 import { Modal } from '@mui/material'
 import useColumnsVisibility from '../../../hooks/useColumnsVisibility'
-import { defaultVisibleColumns } from '../data'
 import VisibilityForm from '../../../components/VisibilityForm/VisibilityForm'
 import TableLoader from '../../../components/TableLoader/TableLoader'
+import useSorting from '../../../hooks/useSorting'
+import SortingForm from '../../../components/SortingForm/SortingForm'
 
 const getFilterVisibleValue = (searchParams) => {
     const params = Object.fromEntries(searchParams);
@@ -31,15 +32,21 @@ const FabricsList = () => {
 
     const [visibleColumns, hanldeVisibiltySubmit] = useColumnsVisibility(defaultVisibleColumns, 'fabricsVisibleColumns', closeModal)
 
+    const [sortModel, handleSort, resetSort] = useSorting(defaultSortingModel, 'fabricsSorting', closeModal)
+
     const { data, isLoading } = useQuery({
-        queryKey: ['fabrics', searchParams.toString()],
-        queryFn: () => FabricsService.getFabricsList(searchParams.toString()),
+        queryKey: ['fabrics', searchParams.toString(),JSON.stringify(sortModel)],
+        queryFn: () => FabricsService.getFabricsList(searchParams.toString(),sortModel),
     })
+
+    const showResetSort = (sortModel,defaultSortModel) => {
+        return JSON.stringify(sortModel) !== JSON.stringify(defaultSortModel) ? true : false
+    }
 
 
     return (
         <div className='pb-8 pt-2'>
-            <Panel modal={modal} openModal={openModal} setFilterVisible={setFilterVisible} isFilterVisible={isFilterVisible} />
+            <Panel modal={modal} openModal={openModal} setFilterVisible={setFilterVisible} isFilterVisible={isFilterVisible} showResetSort={showResetSort(sortModel,defaultSortingModel)} resetSort={resetSort} />
             <FilterForm
                 fields={filterFields}
                 isVisible={isFilterVisible}
@@ -87,7 +94,16 @@ const FabricsList = () => {
                             fields={visibilityFormFields}
                             defaultValues={visibleColumns}
                             onSubmitFn={hanldeVisibiltySubmit}
-                        /> : modal.modal === 'sorting' ? <div>Sorting</div> : <div>No modal</div>
+                        /> : modal.modal === 'sorting' ? (
+                            <SortingForm 
+                                sortByOptions={sortByOptions}
+                                sortOptions={sortOptions}
+                                defaultValue={sortModel}
+                                onSubmitFn={handleSort}
+                                resetSort={resetSort}
+                                defaultSortingModel={defaultSortingModel}
+                            />
+                        ) : <div>No modal</div>
                 }
             </Modal>
         </div>

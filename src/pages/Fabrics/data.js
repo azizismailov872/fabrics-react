@@ -132,3 +132,39 @@ export const visibilityFormFields = [
         label: 'цвета',
     },
 ]
+
+export const defaultSortingModel = {
+    sortBy: 'model',
+    sort: 'asc'
+}
+
+export const sortByOptions = [
+    {   
+        label: 'Модель',
+        value: 'model',
+    },
+    {
+        label: 'Колличество',
+        value: 'quantity',
+    },
+    {   
+        label: 'Материалы',
+        value: 'materials',
+    },
+    {
+        label: 'Цвета',
+        value: 'colors',
+    },
+]
+
+export const sortOptions = [
+    {
+        label: 'По возрастанию',
+        value: 'asc'
+    },
+    {
+        label: 'По убыванию',
+        value: 'desc'
+    }
+]
+

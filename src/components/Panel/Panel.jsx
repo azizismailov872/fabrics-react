@@ -1,11 +1,10 @@
-import { Plus, Eye, ArrowsDownUp, Gear, Trash, DotsThreeOutline } from '@phosphor-icons/react'
+import { Plus, Eye, ArrowsDownUp,Trash, DotsThreeOutline } from '@phosphor-icons/react'
 import PanelButton from '../PanelButton/PanelButton'
 import '../../index.css'
-import { useState } from 'react';
-import { IconButton, Menu, MenuItem, Modal } from '@mui/material';
+import { IconButton, Menu, MenuItem} from '@mui/material';
 import useMenu from '../../hooks/useMenu';
 
-const Panel = ({ showResetSort,isFilterVisible,setFilterVisible,modal,openModal,...props }) => {
+const Panel = ({ showResetSort,resetSort, isFilterVisible, setFilterVisible, modal, openModal, ...props }) => {
 
     const [open, anchorEl, handleClick, handleClose] = useMenu();
 
@@ -23,14 +22,19 @@ const Panel = ({ showResetSort,isFilterVisible,setFilterVisible,modal,openModal,
                         <ArrowsDownUp size={20} weight="bold" className='text-black-100 dark:text-primary-light' />
                     </PanelButton>
                 </div>
-                <div className='border-l-2 border-l-black-80 pl-2 ml-2 md:block hidden'>
+                <div className='border-l-2 border-l-black-80 dark:border-l-primary-light pl-2 ml-2 md:block hidden'>
                     <PanelButton toggable={false} title="Удалить" onClickFn={() => alert('DElete')}>
                         <Trash className='text-black-100 dark:text-primary-light' size={20} weight="bold" />
                     </PanelButton>
                     <span className='text-black-100 dark:text-primary-light font-medium'>Выбрано 305</span>
                 </div>
                 <div className='md:border-none border-l-2 border-l-black-80 pl-2 ml-2 md:ml-auto'>
-                    <button onClick={() => alert('Сброс сортировки')} className='text-black-40 whitespace-nowrap md:block  hidden'>Сбросить сортировку</button>
+                    {
+                        showResetSort && (
+                            <button onClick={() => resetSort()} className='text-black-40 dark:text-white-40 whitespace-nowrap md:block  hidden'>Сбросить сортировку</button>
+                        )
+                    }
+
                     <div className='md:hidden block'>
                         <IconButton
                             onClick={handleClick}
@@ -53,9 +57,13 @@ const Panel = ({ showResetSort,isFilterVisible,setFilterVisible,modal,openModal,
                             <MenuItem onClick={() => alert('Удалить')}>
                                 Удалить (305)
                             </MenuItem>
-                            <MenuItem onClick={() => alert('сбросить сортировку')}>
-                                Cбросить сортировку
-                            </MenuItem>
+                            {
+                                showResetSort && (
+                                    <MenuItem onClick={() => resetSort()}>
+                                        Cбросить сортировку
+                                    </MenuItem>
+                                )
+                            }
                         </Menu>
                     </div>
                 </div>
