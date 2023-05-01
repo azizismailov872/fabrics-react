@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import useFilter from '../../../hooks/useFilter'
 import { useQuery } from '@tanstack/react-query'
 import { FabricsService } from '../../../services/FabricsService'
@@ -39,14 +39,16 @@ const FabricsList = () => {
         queryFn: () => FabricsService.getFabricsList(searchParams.toString(),sortModel),
     })
 
-    const showResetSort = (sortModel,defaultSortModel) => {
+    const getShowResetSortValue = (sortModel,defaultSortModel) => {
         return JSON.stringify(sortModel) !== JSON.stringify(defaultSortModel) ? true : false
     }
+
+    const showResetSort = useMemo(() => getShowResetSortValue(sortModel,defaultSortingModel),[sortModel])
 
 
     return (
         <div className='pb-8 pt-2'>
-            <Panel modal={modal} openModal={openModal} setFilterVisible={setFilterVisible} isFilterVisible={isFilterVisible} showResetSort={showResetSort(sortModel,defaultSortingModel)} resetSort={resetSort} />
+            <Panel modal={modal} openModal={openModal} setFilterVisible={setFilterVisible} isFilterVisible={isFilterVisible} showResetSort={showResetSort} resetSort={resetSort} />
             <FilterForm
                 fields={filterFields}
                 isVisible={isFilterVisible}

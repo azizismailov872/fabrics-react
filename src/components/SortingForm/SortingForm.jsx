@@ -60,7 +60,7 @@ const SortingForm = ({sortByOptions,sortOptions,onSubmitFn,defaultValue,defaultS
                 </div>
                 <div className='mt-4 flex gap-3'>
                     <Button type="submit">
-                        Отправить
+                        Сохранить
                     </Button>
                     <Button type="button" secondary onClick={onReset}>
                         Сбросить
