@@ -1,6 +1,6 @@
 const Wrapper = (props) => {
     return (
-        <div className="w-full h-full flex relative">
+        <div className="flex relative wrapper">
             {
                 props.children
             }

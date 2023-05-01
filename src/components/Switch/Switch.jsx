@@ -1,10 +1,11 @@
 import { FormControlLabel, FormGroup, Switch as MuiSwitch } from '@mui/material'
 import { forwardRef } from 'react'
+import useAppStore from '../../store/store'
 
-const Switch = ({ name, value, onChange, onBlur, label,...props }, ref) => {
+const Switch = ({ name, checked, onChange, onBlur, label,...props }, ref) => {
 
-    // const mode = useAppStore(state => state.mode)
-    const mode = props.mode ? props.mode : 'light';
+    const mode = useAppStore(state => state.mode)
+    //const mode = props.mode ? props.mode : 'light';
 
     const styles = {
         '& .MuiSwitch-root': {
@@ -36,11 +37,13 @@ const Switch = ({ name, value, onChange, onBlur, label,...props }, ref) => {
         }
     }
 
+    console.log('value: ',checked)
+
     return(
          <FormGroup sx = { styles } >
                 <FormControlLabel control={<MuiSwitch onBlur={onBlur}
                     onChange={onChange}
-                    checked={value}
+                    checked={checked}
                     name={name}
                     inputRef={ref} />} label={label} />
         </FormGroup >

@@ -5,25 +5,22 @@ import { useState } from 'react';
 import { IconButton, Menu, MenuItem, Modal } from '@mui/material';
 import useMenu from '../../hooks/useMenu';
 
-const Panel = ({ showResetSort }) => {
+const Panel = ({ showResetSort,isFilterVisible,setFilterVisible,modal,openModal,...props }) => {
 
     const [open, anchorEl, handleClick, handleClose] = useMenu();
 
     return (
         <div className='p-2 bg-primary-light dark:bg-black-40 rounded-md mb-4'>
             <div className='flex items-center flex-wrap sm:flex-nowrap'>
-                <div className='flex gap-[5px]'>
-                    <PanelButton active={true} title="Открыть форму поиска">
+                <div className='flex gap-[10px]'>
+                    <PanelButton active={isFilterVisible} onClickFn={() => setFilterVisible(prev => !prev)} title="Открыть форму поиска">
                         <Plus size={20} weight="bold" className='text-black-100 dark:text-primary-light' />
                     </PanelButton>
-                    <PanelButton title="Показать/Скрыть поля">
+                    <PanelButton onClickFn={() => openModal('visibility')} onClose={modal.isOpen ? false : true} title="Показать/Скрыть поля">
                         <Eye size={20} weight="bold" className={'text-black-100 dark:text-primary-light'} />
                     </PanelButton>
-                    <PanelButton title="Сортировка">
+                    <PanelButton onClickFn={() => openModal('sorting')} onClose={modal.isOpen ? false : true} title="Сортировка">
                         <ArrowsDownUp size={20} weight="bold" className='text-black-100 dark:text-primary-light' />
-                    </PanelButton>
-                    <PanelButton title="Настройки">
-                        <Gear size={20} weight="bold" className='text-black-100 dark:text-primary-light' />
                     </PanelButton>
                 </div>
                 <div className='border-l-2 border-l-black-80 pl-2 ml-2 md:block hidden'>

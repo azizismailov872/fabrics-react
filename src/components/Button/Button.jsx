@@ -1,7 +1,7 @@
 import { ClipLoader } from 'react-spinners'
 import '../../index.css'
 
-const Button = ({type,isLoading,secondary = false,warning = false,minWidth,className,...props}) => {
+const Button = ({type,isLoading,secondary = false,warning = false,minWidth,className,size = 'normal',...props}) => {
 
     // const mode = useAppStore(state => state.mode)
     const mode = props.mode ? props.mode : 'light';
@@ -12,7 +12,7 @@ const Button = ({type,isLoading,secondary = false,warning = false,minWidth,class
 
     const warningStyles = 'bg-red-600 text-primary-light'
 
-    const base = 'px-4 py-2 rounded-md font-medium flex items-center justify-center gap-2'
+    const base = `${size === 'small' ? 'px-2 py-1' : 'px-4 py-2'} rounded-md font-medium flex items-center justify-center gap-2`
 
     return (
         <button 

@@ -1,6 +1,6 @@
 const Content = (props) => {
   return (
-    <div className='bg-white-100 dark:bg-primary-darkBlue w-full h-full'>
+    <div className='bg-white-100 dark:bg-primary-darkBlue content'>
         {
             props.children
         }

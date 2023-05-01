@@ -26,7 +26,7 @@ const PanelButton = ({title,children,toggable = true,active,onClose = false,onCl
     }
 
     return (
-        <Tooltip sx={(toggable && isActive) && activeStyles} onClick={onClick} title={title}>
+        <Tooltip sx={(toggable && isActive) ? activeStyles : {}} onClick={onClick} title={title}>
             <IconButton>
                 {
                     children
