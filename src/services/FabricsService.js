@@ -24,6 +24,10 @@ export const FabricsService = {
 
         return response
     },
+    create: async(data) => {
+        await instance.get('/sanctum/csrf-cookie');
+        return instance.post('/api/fabrics/create',data)
+    },
     deleteFabrics: async(ids) => {
         await instance.get('/sanctum/csrf-cookie');
         return instance.post('/api/fabrics/delete',{
