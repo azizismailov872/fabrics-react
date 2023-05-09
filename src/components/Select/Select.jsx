@@ -13,8 +13,8 @@ const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSi
     const color = mode === 'light' ? '#1C1C1C' : '#fff'
 
     const styles = {
-        minWidth: props.minWidth ? props.minWidth : '200px',
-        maxWidth: props.maxWidth ? props.maxWidth : undefined,
+        minWidth: minWidth ? minWidth : '200px',
+        maxWidth: maxWidth ? maxWidth : undefined,
         '& .MuiInputLabel-root': {
             //top: size === 'small' ? '-7px' : '0px',
             color: color,

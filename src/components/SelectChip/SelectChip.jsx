@@ -1,14 +1,15 @@
 import { forwardRef} from 'react'
 import { Box, Chip, MenuItem, InputAdornment, TextField } from '@mui/material';
 import '../../index.css'
+import useAppStore from '../../store/store';
 
 
 const chipBoxStyles = { display: 'flex', flexWrap: 'wrap', gap: 0.5 }
 
-const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, errorMessage,optionValue = 'id', ...props },ref) => {
+const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, errorMessage,optionValue = 'id',minWidth,maxWidth, ...props },ref) => {
 
-    // const mode = useAppStore(state => state.mode)
-    const mode = props.mode ? props.mode : 'light';
+    const mode = useAppStore(state => state.mode)
+    //const mode = props.mode ? props.mode : 'light';
 
     const Icon = icon;
 
@@ -19,8 +20,8 @@ const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, err
     const chipColor = mode === 'light' ? '#fff' : '#1c1c1c'
 
     const styles = {
-        minWidth: props.minWidth ? props.minWidth : '200px',
-        maxWidth: props.maxWidth ? props.maxWidth : undefined,
+        minWidth: minWidth ? minWidth : '200px',
+        maxWidth: maxWidth ? maxWidth : undefined,
         '& .MuiInputLabel-root': {
             //top: size === 'small' ? '-7px' : '0px',
             color: color,

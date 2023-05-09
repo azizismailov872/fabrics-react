@@ -37,8 +37,6 @@ const Switch = ({ name, checked, onChange, onBlur, label,...props }, ref) => {
         }
     }
 
-    console.log('value: ',checked)
-
     return(
          <FormGroup sx = { styles } >
                 <FormControlLabel control={<MuiSwitch onBlur={onBlur}
