@@ -2,12 +2,15 @@ import { isEmpty, pickBy, unset } from "lodash";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
-
+import {yupResolver} from '@hookform/resolvers/yup'
+import filterSchema from "../validation/fabrics/filter";
 
 const useFilter = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const {register,handleSubmit,reset: resetAll,watch,resetField,setValue} = useForm()
+    const {register,handleSubmit,reset: resetAll,watch,resetField,setValue, formState: {errors}} = useForm({
+        resolver: yupResolver(filterSchema)
+    })
 
     useEffect(() => {
         if(!isEmpty(Object.fromEntries(searchParams))) {
@@ -28,7 +31,7 @@ const useFilter = () => {
             resetField('quantity')
             unset(formData,'quantity')
         }
-        const data = pickBy(formData, value => value.length > 0)
+        const data = pickBy(formData, value => value !== null && value !== '')
         setSearchParams({
             page: 1,
             ...data
@@ -40,7 +43,7 @@ const useFilter = () => {
         resetAll()
     }
 
-    return {register,onSubmit: handleSubmit(onSubmit),reset,watch,searchParams}
+    return {register,onSubmit: handleSubmit(onSubmit),reset,watch,searchParams,errors}
 }
 
 export default useFilter

@@ -20,7 +20,7 @@ const VisibilityForm = ({onSubmitFn,fields,defaultValues, ...props }, ref) => {
         <div className='bg-primary-light dark:bg-primary-darkBlue p-4 rounded-md w-[300px] xs:w-[380px] sm:w-[500px]'>
             <form className='px-2 py-4' onSubmit={handleSubmit(onSubmit)}>
                 <h2 className='text-2xl font-medium tex-black-100 dark:text-primary-light mb-4'>Показать/Скрыть поля</h2>
-                <div className='flex justify-center md:justify-start flex-wrap py-1 px-2'>
+                <div className='flex md:flex-row flex-col justify-center md:justify-start flex-wrap py-1 px-2'>
                     {
                         fields?.length && fields.map(field =>
                             <div className='flex-1' key={field.id}>

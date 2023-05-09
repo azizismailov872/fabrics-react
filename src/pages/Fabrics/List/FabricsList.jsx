@@ -14,6 +14,7 @@ import VisibilityForm from '../../../components/VisibilityForm/VisibilityForm'
 import TableLoader from '../../../components/TableLoader/TableLoader'
 import useSorting from '../../../hooks/useSorting'
 import SortingForm from '../../../components/SortingForm/SortingForm'
+import useDelete from '../../../hooks/useDelete'
 
 const getFilterVisibleValue = (searchParams) => {
     const params = Object.fromEntries(searchParams);
@@ -24,7 +25,7 @@ const getFilterVisibleValue = (searchParams) => {
 
 const FabricsList = () => {
 
-    const { register, onSubmit, reset, watch, searchParams } = useFilter()
+    const { register, onSubmit, reset, watch, searchParams, errors} = useFilter()
 
     const [isFilterVisible, setFilterVisible] = useState(getFilterVisibleValue(searchParams))
 
@@ -33,6 +34,8 @@ const FabricsList = () => {
     const [visibleColumns, hanldeVisibiltySubmit] = useColumnsVisibility(defaultVisibleColumns, 'fabricsVisibleColumns', closeModal)
 
     const [sortModel, handleSort, resetSort] = useSorting(defaultSortingModel, 'fabricsSorting', closeModal)
+
+    const [selectedRows,setSelectedRows,onDelete] = useDelete(FabricsService.deleteFabrics,'fabrics')
 
     const { data, isLoading } = useQuery({
         queryKey: ['fabrics', searchParams.toString(),JSON.stringify(sortModel)],
@@ -48,7 +51,17 @@ const FabricsList = () => {
 
     return (
         <div className='pb-8 pt-2'>
-            <Panel modal={modal} openModal={openModal} setFilterVisible={setFilterVisible} isFilterVisible={isFilterVisible} showResetSort={showResetSort} resetSort={resetSort} />
+            <Panel 
+                modal={modal} 
+                openModal={openModal} 
+                setFilterVisible={setFilterVisible} 
+                isFilterVisible={isFilterVisible} 
+                showResetSort={showResetSort} 
+                resetSort={resetSort} 
+                showDeleteBtn={selectedRows?.length > 0 ? true : false}
+                deleteRowsCount={selectedRows.length}
+                onDelete={onDelete}
+            />
             <FilterForm
                 fields={filterFields}
                 isVisible={isFilterVisible}
@@ -56,13 +69,14 @@ const FabricsList = () => {
                 onSubmit={onSubmit}
                 reset={reset}
                 watch={watch}
+                errors={errors}
             />
             <div>
                 {
                     isLoading ? <TableLoader /> : (
                         <DataTable
-                            data={data.data.data.data}
-                            rowCount={data.data.data.total}
+                            data={data.data.data}
+                            rowCount={data.data.total}
                             visibleColumns={visibleColumns}
                             checkboxSelection={true}
                             initialState={{
@@ -72,9 +86,12 @@ const FabricsList = () => {
                                     }
                                 }
                             }}
+                            onRowSelectionModelChange={(newRowSelectionModel) => {
+                                setSelectedRows(newRowSelectionModel);
+                            }}
                             columns={dataTableColumns}
                             boxClass={
-                                data.data.data.total > 10 ? 'h-[110vh]' : 'h-[50vh]'
+                                data.data.total > 10 ? 'h-[95vh]' : 'h-[50vh]'
                             }
                         />
                     )

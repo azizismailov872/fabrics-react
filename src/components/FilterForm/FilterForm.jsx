@@ -5,7 +5,7 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 
 
-const FilterForm = ({ isVisible, fields, register, onSubmit,reset,watch, ...props }) => {
+const FilterForm = ({ isVisible, fields, register, onSubmit,reset,watch,errors, ...props }) => {
 
     const [measureRef, { height }] = useMeasure();
 
@@ -41,6 +41,8 @@ const FilterForm = ({ isVisible, fields, register, onSubmit,reset,watch, ...prop
                                         size="small"
                                         className="w-full md:w-auto"
                                         disabled={isDisabled(field.name)}
+                                        error={!!errors[field.name]}
+                                        errorMessage={errors[field.name]?.message && errors[field.name].message }
                                     />
                                 </div>
                             )

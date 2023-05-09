@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const useLocalStorage = (initialValue, key) => {
     const getValue = () => {
         const storage = localStorage.getItem(key); // string || null
-
+        
         if (storage) {
             return Number.isInteger(storage) ? storage : JSON.parse(storage); // '[]', '{}', ''
         }

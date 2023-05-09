@@ -1,10 +1,10 @@
-import { Plus, Eye, ArrowsDownUp,Trash, DotsThreeOutline } from '@phosphor-icons/react'
+import { Plus, Eye, ArrowsDownUp, Trash, DotsThreeOutline } from '@phosphor-icons/react'
 import PanelButton from '../PanelButton/PanelButton'
 import '../../index.css'
-import { IconButton, Menu, MenuItem} from '@mui/material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import useMenu from '../../hooks/useMenu';
 
-const Panel = ({ showResetSort,resetSort, isFilterVisible, setFilterVisible, modal, openModal, ...props }) => {
+const Panel = ({ showResetSort, resetSort, isFilterVisible, setFilterVisible, modal, openModal, showDeleteBtn, onDelete, deleteRowsCount, ...props }) => {
 
     const [open, anchorEl, handleClick, handleClose] = useMenu();
 
@@ -22,51 +22,63 @@ const Panel = ({ showResetSort,resetSort, isFilterVisible, setFilterVisible, mod
                         <ArrowsDownUp size={20} weight="bold" className='text-black-100 dark:text-primary-light' />
                     </PanelButton>
                 </div>
-                <div className='border-l-2 border-l-black-80 dark:border-l-primary-light pl-2 ml-2 md:block hidden'>
-                    <PanelButton toggable={false} title="Удалить" onClickFn={() => alert('DElete')}>
-                        <Trash className='text-black-100 dark:text-primary-light' size={20} weight="bold" />
-                    </PanelButton>
-                    <span className='text-black-100 dark:text-primary-light font-medium'>Выбрано 305</span>
-                </div>
-                <div className='md:border-none border-l-2 border-l-black-80 pl-2 ml-2 md:ml-auto'>
-                    {
-                        showResetSort && (
-                            <button onClick={() => resetSort()} className='text-black-40 dark:text-white-40 whitespace-nowrap md:block  hidden'>Сбросить сортировку</button>
-                        )
-                    }
+                {
+                    showDeleteBtn && (
+                        <div className='border-l-2 border-l-black-80 dark:border-l-primary-light pl-2 ml-2 md:block hidden'>
+                            <PanelButton toggable={false} title="Удалить" onClickFn={() => onDelete()}>
+                                <Trash className='text-black-100 dark:text-primary-light' size={20} weight="bold" />
+                            </PanelButton>
+                            <span className='text-black-100 dark:text-primary-light font-medium'>Выбрано {deleteRowsCount ? deleteRowsCount : ''}</span>
+                        </div>
+                    )
+                }
+                {   
 
-                    <div className='md:hidden block'>
-                        <IconButton
-                            onClick={handleClick}
-                            size="small"
-                            aria-controls={open ? 'account-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                        >
-                            <DotsThreeOutline className='text-black-100 dark:text-primary-light' size={20} weight="bold" />
-                        </IconButton>
-                        <Menu
-                            id="basic-menu"
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleClose}
-                            MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                            }}
-                        >
-                            <MenuItem onClick={() => alert('Удалить')}>
-                                Удалить (305)
-                            </MenuItem>
+                    (showResetSort || showDeleteBtn) && (
+                        <div className='md:border-none border-l-2 border-l-black-80 dark:border-l-primary-light pl-2 ml-2 md:ml-auto'>
                             {
                                 showResetSort && (
-                                    <MenuItem onClick={() => resetSort()}>
-                                        Cбросить сортировку
-                                    </MenuItem>
+                                    <button onClick={() => resetSort()} className='text-black-40 dark:text-white-40 whitespace-nowrap md:block  hidden'>Сбросить сортировку</button>
                                 )
                             }
-                        </Menu>
-                    </div>
-                </div>
+                            <div className='md:hidden block'>
+                                <IconButton
+                                    onClick={handleClick}
+                                    size="small"
+                                    aria-controls={open ? 'account-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                >
+                                    <DotsThreeOutline className='text-black-100 dark:text-primary-light' size={20} weight="bold" />
+                                </IconButton>
+                                <Menu
+                                    id="basic-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'basic-button',
+                                    }}
+                                >
+                                    {
+                                        showDeleteBtn && (
+                                            <MenuItem onClick={() => onDelete()}>
+                                                Удалить {deleteRowsCount}
+                                            </MenuItem>
+                                        )
+                                    }
+                                    {
+                                        showResetSort && (
+                                            <MenuItem onClick={() => resetSort()}>
+                                                Cбросить сортировку
+                                            </MenuItem>
+                                        )
+                                    }
+                                </Menu>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
         </div>
     )

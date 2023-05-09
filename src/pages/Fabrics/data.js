@@ -85,9 +85,16 @@ export const dataTableColumns = [
         flex: 1,
         sortable: false,
         renderCell: ({row: {colors}}) => {
-            return (
+            return typeof colors === 'string' ? (
+                    <div>
+                        {
+                            colors.substring(1, colors.length - 1) === 'NULL' ? <span>Нет цвета</span> : 
+                            <span>{colors.substring(1, colors.length - 1)}</span>
+                        }
+                    </div>
+            ) : (
                 <div>
-                    <span>{colors.length > 0 ? colors.map(color => `${color.name}, `) : 'Не указано'}</span>
+                    <span>{colors.length > 0 ? colors.map(color => `${color.name}, `) : 'Нет цвета'}</span>
                 </div>
             )
         }
@@ -134,11 +141,15 @@ export const visibilityFormFields = [
 ]
 
 export const defaultSortingModel = {
-    sortBy: 'model',
-    sort: 'asc'
+    sortBy: 'created_at',
+    sort: 'desc'
 }
 
 export const sortByOptions = [
+    {   
+        label: 'Дата добавления',
+        value: 'created_at',
+    },
     {   
         label: 'Модель',
         value: 'model',
