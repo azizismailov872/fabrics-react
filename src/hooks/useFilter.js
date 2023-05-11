@@ -3,7 +3,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import {yupResolver} from '@hookform/resolvers/yup'
-import filterSchema from "../validation/fabrics/filter";
+import { filterSchema } from "../validation/fabrics";
+
 
 const useFilter = () => {
     const [searchParams, setSearchParams] = useSearchParams();
