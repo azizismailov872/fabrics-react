@@ -3,7 +3,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 const Row = () => {
     return (
-        <div className="row flex gap-5   px-1">
+        <div className="row flex gap-5 px-1 mb-5">
             <div className='w-[50px] h-[25px]'>
                 <Skeleton height="100%" />
             </div>

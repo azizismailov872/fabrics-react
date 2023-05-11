@@ -1,8 +1,8 @@
 import React from 'react'
-import useAppStore from '../../store/store'
+import useAppStore from '../../../store/store'
 import { PulseLoader } from 'react-spinners'
 
-const Loader = () => {
+const MainLoader = () => {
 
     const mode = useAppStore(state => state.mode)
 
@@ -14,4 +14,4 @@ const Loader = () => {
     )
 }
 
-export default Loader
+export default MainLoader
