@@ -1,5 +1,4 @@
 import { ClipLoader } from 'react-spinners'
-import '../../index.css'
 
 const Button = ({type,isLoading,secondary = false,warning = false,minWidth,className,size = 'normal',...props}) => {
 

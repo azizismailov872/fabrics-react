@@ -1,6 +1,6 @@
 import { FormControlLabel, FormGroup, Switch as MuiSwitch } from '@mui/material'
 import { forwardRef } from 'react'
-import useAppStore from '../../store/store'
+import useAppStore from '../../../store/store'
 
 const Switch = ({ name, checked, onChange, onBlur, label,...props }, ref) => {
 

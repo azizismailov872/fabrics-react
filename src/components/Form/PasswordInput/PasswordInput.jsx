@@ -1,7 +1,58 @@
 import { IconButton, InputAdornment, TextField } from '@mui/material'
 import { Eye, EyeSlash, Lock } from '@phosphor-icons/react'
 import { useState } from 'react'
-import useAppStore from '../../store/store';
+import useAppStore from '../../../store/store';
+
+const getStyles = (color) => ({
+    '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: color
+        },
+        '&:hover fieldset': {
+            borderColor: color
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: color
+        },
+        '& input': {
+            color: color
+        },
+        '& .MuiSvgIcon-root, svg': {
+            color: color
+        }
+    },
+    '& .MuiFormLabel-root': {
+        color: color,
+        '&.Mui-focused': {
+            color: color
+        }
+    },
+    '& .Mui-error': {
+        '&.MuiFormLabel-root': {
+            color: 'red'
+        },
+        '& .MuiInputAdornment-root svg': {
+            color: 'red'
+        },
+        '&.MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'red'
+            },
+            '&:hover fieldset': {
+                borderColor: 'red'
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'red'
+            },
+            '& input': {
+                color: 'red'
+            },
+            '& .MuiSvgIcon-root, svg': {
+                color: 'red'
+            }
+        }
+    }
+})
 
 const PasswordInput = ({ iconSize, iconClass,errorMessage, ...props}) => {
 
@@ -18,57 +69,7 @@ const PasswordInput = ({ iconSize, iconClass,errorMessage, ...props}) => {
 
     const color = mode === 'light' ? '#1C1C1C' : '#fff'
 
-    const styles = {
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: color
-            },
-            '&:hover fieldset': {
-                borderColor: color
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: color
-            },
-            '& input': {
-                color: color
-            },
-            '& .MuiSvgIcon-root, svg': {
-                color: color
-            }
-        },
-        '& .MuiFormLabel-root': {
-            color: color,
-            '&.Mui-focused': {
-                color: color
-            }
-        },
-        '& .Mui-error': {
-            '&.MuiFormLabel-root': {
-                color: 'red'
-            },
-            '& .MuiInputAdornment-root svg': {
-                color: 'red'
-            },
-            '&.MuiOutlinedInput-root': {
-                '& fieldset': {
-                    borderColor: 'red'
-                },
-                '&:hover fieldset': {
-                    borderColor: 'red'
-                },
-                '&.Mui-focused fieldset': {
-                    borderColor: 'red'
-                },
-                '& input': {
-                    color: 'red'
-                },
-                '& .MuiSvgIcon-root, svg': {
-                    color: 'red'
-                }
-            }
-        }
-
-    }
+    const styles = getStyles(color)
 
     return (
         <TextField

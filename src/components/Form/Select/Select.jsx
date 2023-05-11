@@ -1,12 +1,9 @@
-import { forwardRef} from 'react'
-import { Box, Chip, MenuItem, InputAdornment, TextField } from '@mui/material';
-import '../../index.css'
-import useAppStore from '../../store/store';
+import { InputAdornment, MenuItem, TextField } from '@mui/material';
+import {forwardRef} from 'react'
+import useAppStore from '../../../store/store';
 
 
-const chipBoxStyles = { display: 'flex', flexWrap: 'wrap', gap: 0.5 }
-
-const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, errorMessage,optionValue = 'id',minWidth,maxWidth, ...props },ref) => {
+const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSize, iconClass, errorMessage,multiple,minWidth,maxWidth, ...props },ref) => {
 
     const mode = useAppStore(state => state.mode)
     //const mode = props.mode ? props.mode : 'light';
@@ -14,10 +11,6 @@ const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, err
     const Icon = icon;
 
     const color = mode === 'light' ? '#1C1C1C' : '#fff'
-
-    const chipBg = mode === 'light' ? '#1c1c1c' : '#95A4FC'
-
-    const chipColor = mode === 'light' ? '#fff' : '#1c1c1c'
 
     const styles = {
         minWidth: minWidth ? minWidth : '200px',
@@ -31,6 +24,7 @@ const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, err
             }
         },
         '& .MuiOutlinedInput-root': {
+            color: color,
             '& fieldset': {
                 borderColor: color
             },
@@ -47,13 +41,8 @@ const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, err
                 color: color
             }
         },
-        '& .MuiChip-root': {
-            backgroundColor: chipBg,
-            '& .MuiChip-label': {
-                color: chipColor
-            }
-        },
         '& .Mui-error': {
+            color: 'red',
             '&.MuiFormLabel-root': {
                 color: 'red'
             },
@@ -77,32 +66,19 @@ const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, err
                     color: 'red'
                 }
             },
-            '& .MuiChip-root': {
-                backgroundColor: 'red',
-                '& .MuiChip-label': {
-                    color: '#fff'
-                }
-            },
         }
     }
 
     return (
         <TextField
             label={label ? label : 'Select input'}
-            name={name}
             size={size}
             sx={styles}
             helperText={errorMessage ? errorMessage : undefined}
             select
+            ref={ref}
             SelectProps={{
-                multiple: true,
-                renderValue: (selected) => (
-                    <Box sx={chipBoxStyles}>
-                        {selected.map((value) => (
-                            <Chip key={value} label={options.find(obj => obj[optionValue] === value).value} />
-                        ))}
-                    </Box>
-                ),
+                multiple: multiple,
                 startAdornment: Icon ? (
                     <InputAdornment position="start">
                         {
@@ -111,16 +87,15 @@ const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, err
                     </InputAdornment>
                 ) : null
             }}
-            ref={ref}
             {...props}
         >
             {
                 options?.length > 0 ? options.map((option) => (
                     <MenuItem
-                        key={option.id}
+                        key={option.id ? option.id : option.value}
                         value={option[optionValue]}
                     >
-                        {option.value}
+                        {option.label ? option.label : option.value}
                     </MenuItem>
                 )) :
                     <MenuItem
@@ -132,7 +107,7 @@ const SelectChip = ({ name, label, size, options, icon, iconSize, iconClass, err
                     </MenuItem>
             }
         </TextField>
-    );
+    )
 }
 
-export default forwardRef(SelectChip)
+export default forwardRef(Select)

@@ -1,19 +1,12 @@
-import { InputAdornment, MenuItem, TextField } from '@mui/material';
-import {forwardRef} from 'react'
-import useAppStore from '../../store/store';
+import { forwardRef, useMemo} from 'react'
+import { Box, Chip, MenuItem, InputAdornment, TextField } from '@mui/material';
+import useAppStore from '../../../store/store';
 
 
-const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSize, iconClass, errorMessage,multiple,minWidth,maxWidth, ...props },ref) => {
+const chipBoxStyles = { display: 'flex', flexWrap: 'wrap', gap: 0.5 }
 
-    const mode = useAppStore(state => state.mode)
-    //const mode = props.mode ? props.mode : 'light';
-
-    const Icon = icon;
-
-    const color = mode === 'light' ? '#1C1C1C' : '#fff'
-
-    const styles = {
-        minWidth: minWidth ? minWidth : '200px',
+const getStyles = ({color,chipBg,chipColor,minWidth,maxWidth}) => ({
+    minWidth: minWidth ? minWidth : '200px',
         maxWidth: maxWidth ? maxWidth : undefined,
         '& .MuiInputLabel-root': {
             //top: size === 'small' ? '-7px' : '0px',
@@ -24,7 +17,6 @@ const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSi
             }
         },
         '& .MuiOutlinedInput-root': {
-            color: color,
             '& fieldset': {
                 borderColor: color
             },
@@ -41,8 +33,13 @@ const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSi
                 color: color
             }
         },
+        '& .MuiChip-root': {
+            backgroundColor: chipBg,
+            '& .MuiChip-label': {
+                color: chipColor
+            }
+        },
         '& .Mui-error': {
-            color: 'red',
             '&.MuiFormLabel-root': {
                 color: 'red'
             },
@@ -66,19 +63,53 @@ const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSi
                     color: 'red'
                 }
             },
+            '& .MuiChip-root': {
+                backgroundColor: 'red',
+                '& .MuiChip-label': {
+                    color: '#fff'
+                }
+            },
+        }
+})
+
+const SelectChip = ({name,label,size,options,icon,iconSize,iconClass, errorMessage,optionValue = 'id', optionLabel = 'value',minWidth,maxWidth, ...props },ref) => {
+
+    const mode = useAppStore(state => state.mode)
+    //const mode = props.mode ? props.mode : 'light';
+
+    const Icon = icon;
+
+    const getColors = (mode) => {
+        return {
+            color: mode === 'light' ? '#1C1C1C' : '#fff',
+            chipBg: mode === 'light' ? '#1c1c1c' : '#95A4FC',
+            chipColor: mode === 'light' ? '#fff' : '#1c1c1c'
         }
     }
+
+    const {color,chipBg,chipColor} = useMemo(() => getColors(mode),[mode]);
+
+    const styles = getStyles({color,chipBg,chipColor,minWidth,maxWidth})
 
     return (
         <TextField
             label={label ? label : 'Select input'}
+            name={name}
             size={size}
             sx={styles}
             helperText={errorMessage ? errorMessage : undefined}
             select
-            ref={ref}
             SelectProps={{
-                multiple: multiple,
+                multiple: true,
+                renderValue: (selected) => (
+                    <Box sx={chipBoxStyles}>
+                        {
+                            selected.map((value) => (
+                                <Chip key={value} label={options.find(obj => obj[optionValue] === value)[optionLabel]} />
+                            )) 
+                        }
+                    </Box>
+                ),
                 startAdornment: Icon ? (
                     <InputAdornment position="start">
                         {
@@ -87,15 +118,16 @@ const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSi
                     </InputAdornment>
                 ) : null
             }}
+            ref={ref}
             {...props}
         >
             {
                 options?.length > 0 ? options.map((option) => (
                     <MenuItem
-                        key={option.id ? option.id : option.value}
+                        key={option[optionValue]}
                         value={option[optionValue]}
                     >
-                        {option.label ? option.label : option.value}
+                        {option[optionLabel] ? option[optionLabel] : "Нет названия"}
                     </MenuItem>
                 )) :
                     <MenuItem
@@ -107,7 +139,7 @@ const Select = ({ name, label, size, options,optionValue = 'value', icon, iconSi
                     </MenuItem>
             }
         </TextField>
-    )
+    );
 }
 
-export default forwardRef(Select)
+export default forwardRef(SelectChip)
