@@ -11,6 +11,9 @@ const instance = axios.create({
 
 
 export const FabricsService = {
+    getFabric: async(id) => {
+        return instance.get(`/api/fabrics/${id}`);
+    },
     getFabricsList: async(searchParams,sortModel) => {
         const baseUrl = !isEmpty(searchParams) ? `/api/fabrics?${searchParams}&` : `/api/fabrics${sortModel ? '?' : ''}`
 
@@ -27,6 +30,10 @@ export const FabricsService = {
     create: async(data) => {
         await instance.get('/sanctum/csrf-cookie');
         return instance.post('/api/fabrics/create',data)
+    },
+    update: async({id,data}) => {
+        await instance.get('/sanctum/csrf-cookie');
+        return instance.post(`/api/fabrics/update/${id}`,data)
     },
     deleteFabrics: async(ids) => {
         await instance.get('/sanctum/csrf-cookie');
