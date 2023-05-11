@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
-import Input from '../Input/Input';
-import Button from '../Button/Button';
+
+import Button from '../../Button/Button';
+import Input from '../../Form/Input/Input';
 
 
 const FilterForm = ({ isVisible, fields, register, onSubmit,reset,watch,errors, ...props }) => {

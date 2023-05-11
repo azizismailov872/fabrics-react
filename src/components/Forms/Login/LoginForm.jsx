@@ -1,8 +1,9 @@
 import React from 'react'
-import Input from '../Input/Input'
+import Button from '../../Button/Button'
 import { At } from '@phosphor-icons/react'
-import Button from '../Button/Button'
-import PasswordInput from '../PasswordInput/PasswordInput'
+import Input from '../../Form/Input/Input'
+import PasswordInput from '../../Form/PasswordInput/PasswordInput'
+
 
 const LoginForm = ({register,onSubmit,errors}) => {
     /* 
@@ -18,7 +19,7 @@ const LoginForm = ({register,onSubmit,errors}) => {
             <h1 className='text-2xl text-dark-100 dark:text-primary-light text-center font-medium mb-4'>Авторизация</h1>
             <form className='px-3 sm:px-10' onSubmit={onSubmit}>
                 <div className='mb-4'>
-                    <Input 
+                    <Input
                         fullWidth 
                         label="Почта" 
                         icon={At} 
@@ -29,7 +30,7 @@ const LoginForm = ({register,onSubmit,errors}) => {
                     />
                 </div>
                 <div className='mb-4'>
-                    <PasswordInput 
+                    <PasswordInput
                         fullWidth 
                         label="Почта" 
                         name="password"

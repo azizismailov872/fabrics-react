@@ -1,8 +1,7 @@
 import { Controller, useForm } from 'react-hook-form'
-import Select from '../Select/Select'
-import Button from '../Button/Button'
+import Select from '../../Form/Select/Select'
+import Button from '../../Button/Button'
 import { forwardRef, useEffect } from 'react'
-import '../../index.css'
 
 
 const SortingForm = ({sortByOptions,sortOptions,onSubmitFn,defaultValue,defaultSortingModel,resetSort,...props},ref) => {
@@ -26,8 +25,6 @@ const SortingForm = ({sortByOptions,sortOptions,onSubmitFn,defaultValue,defaultS
             ...defaultSortingModel
         })
     }
-
-
     return (
         <div className='bg-primary-light dark:bg-primary-darkBlue p-4 rounded-md w-[300px] xs:w-[380px] sm:w-[500px]'>
             <form className='px-2 py-4' onSubmit={handleSubmit(onSubmit)}>

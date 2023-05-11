@@ -1,9 +1,8 @@
 import { forwardRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import Switch from '../Switch/Switch'
-import Button from '../Button/Button'
 
-
+import Button from '../../Button/Button'
+import Switch from '../../Form/Switch/Switch'
 
 const VisibilityForm = ({onSubmitFn,fields,defaultValues, ...props }, ref) => {
 
@@ -14,7 +13,6 @@ const VisibilityForm = ({onSubmitFn,fields,defaultValues, ...props }, ref) => {
     const onSubmit = (formData) => {
         onSubmitFn && onSubmitFn(formData)
     }
-
 
     return (
         <div className='bg-primary-light dark:bg-primary-darkBlue p-4 rounded-md w-[300px] xs:w-[380px] sm:w-[500px]'>

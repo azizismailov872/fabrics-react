@@ -1,20 +1,22 @@
-import React, { forwardRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { createSchema } from '../../validation/colors/create'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import Switch from '../Switch/Switch'
-import Input from '../Input/Input'
-import Button from '../Button/Button'
-import { ColorsService } from '../../services/ColorsService'
+
 import { toast } from 'react-hot-toast'
-import { setErrors } from '../../helper'
+
+import Button from '../../Button/Button'
+import { useForm } from 'react-hook-form'
+import { setErrors } from '../../../helper'
+import { forwardRef, useState } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { createSchema } from '../../../validation/colors'
+import { ColorsService } from '../../../services/ColorsService'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import Input from '../../Form/Input/Input'
+import Switch from '../../Form/Switch/Switch'
 
 const ColorForm = ({onSuccessFn,...props}, ref) => {
 
     const queryClient = useQueryClient();
 
-    const {register,handleSubmit,reset,formState: {errors}} = useForm({
+    const {register,setError,handleSubmit,reset,formState: {errors}} = useForm({
         resolver: yupResolver(createSchema)
     })
 
