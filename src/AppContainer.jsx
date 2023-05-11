@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import App from './App'
 import Login from './pages/Login/Login'
-import Loader from './components/Loader/Loader'
+import MainLoader from './components/Loaders/Main/MainLoader'
 const AppContainer = () => {
 
     useSwitchMode() 
@@ -30,7 +30,7 @@ const AppContainer = () => {
 
 
     if(!initialized) {
-        return <Loader />
+        return <MainLoader />
     }
 
     return auth ? (
