@@ -1,10 +1,10 @@
 import React from 'react'
 import {Routes,Route} from 'react-router-dom'
-import FabricsList from './List/FabricsList'
-import FabricsCreate from './Create/FabricsCreate'
-import FabricsUpdate from './Update/FabricsUpdate'
 import Tabs from '../../components/Tabs/Tabs'
 import PageHeader from '../../components/PageHeader/PageHeader'
+import FabricsUpdateContainer from './Update/FabricsUpdateContainer'
+import FabricsCreateContainer from './Create/FabricsCreateContainer'
+import FabricsListContainer from './List/FabricsListContainer'
 
 const tabList = [
     {
@@ -26,9 +26,9 @@ const Fabrics = () => {
             <PageHeader title="Ткани" />
             <Tabs tabsList={tabList} />
             <Routes>
-                <Route path="/" element={<FabricsList />} />
-                <Route path="/create" element={<FabricsCreate />} />
-                <Route path="/edit/:id" element={<FabricsUpdate />} />
+                <Route path="/" element={<FabricsListContainer />} />
+                <Route path="/create" element={<FabricsCreateContainer />} />
+                <Route path="/edit/:id" element={<FabricsUpdateContainer />} />
             </Routes>
         </div>
     )
