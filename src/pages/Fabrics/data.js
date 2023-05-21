@@ -49,15 +49,17 @@ export const dataTableColumns = [
     {   
         field: 'model',
         headerName: 'Модель',
-        flex: 0.5,
+        flex: 1,
         sortable: false,
+        disableColumnMenu: true,
     },
     {
         field: 'quantity',
         headerName: 'Колличество',
         cellClassName: 'quantity-column',
-        flex: 0.5,
+        flex: 1,
         sortable: false,
+        disableColumnMenu: true,
         renderCell: ({row: {quantity}}) => {
             return (
                 <div>
@@ -67,34 +69,52 @@ export const dataTableColumns = [
         }
     },
     {
-        field: 'materials',
-        headerName: 'Материалы',
+        field: 'weight',
+        headerName: 'Вес',
         flex: 1,
         sortable: false,
-        renderCell: ({row: {materials}}) => {
+        disableColumnMenu: true,
+        renderCell: ({row: {weight}}) => {
             return (
                 <div>
-                    <span>{(materials && materials !== '')  ? materials : 'Не указано'}</span>
+                    <span>{weight} кг.</span>
                 </div>
             )
         }
     },
     {   
-        field: 'colors',
-        headerName: 'Цвета',
+        field: 'color',
+        headerName: 'Цвет',
         flex: 1,
         sortable: false,
-        renderCell: ({row: {colors}}) => {
-            return typeof colors === 'string' ? (
-                    <div>
-                        {
-                            colors.substring(1, colors.length - 1) === 'NULL' ? <span>Нет цвета</span> : 
-                            <span>{colors.substring(1, colors.length - 1)}</span>
-                        }
-                    </div>
-            ) : (
+        disableColumnMenu: true,
+        renderCell: ({row: {color}}) => {
+            return (
                 <div>
-                    <span>{colors.length > 0 ? colors.map(color => `${color.name}, `) : 'Нет цвета'}</span>
+                    <span>
+                        {
+                            typeof color === 'string' ? color : color ? color.name : 'Не указано'
+                        }
+                    </span>
+                </div>
+            )
+        }
+    
+    },
+    {   
+        field: 'material',
+        headerName: 'Материал',
+        flex: 1,
+        sortable: false,
+        disableColumnMenu: true,
+        renderCell: ({row: {material}}) => {
+            return (
+                <div>
+                    <span>
+                        {
+                            (typeof material === 'string') ? material : material  ? material.name : 'Не укзаано'
+                        }
+                    </span>
                 </div>
             )
         }
@@ -104,6 +124,7 @@ export const dataTableColumns = [
         field: "action",
         headerName: "Изменить",
         sortable: false,
+        disableColumnMenu: true,
         renderCell: (params) => {
           return <Link to={`/fabrics/edit/${params.id}`}><Pencil size={22} weight="light" /></Link>;
         }
@@ -130,13 +151,13 @@ export const visibilityFormFields = [
     },
     {
         id: 3,
-        name: 'materials',
-        label: 'Материалы',
+        name: 'material',
+        label: 'Материал',
     },
     {
         id: 4,
-        name: 'colors',
-        label: 'цвета',
+        name: 'color',
+        label: 'Цвет',
     },
 ]
 

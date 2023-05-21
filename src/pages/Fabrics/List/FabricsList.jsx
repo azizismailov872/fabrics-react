@@ -2,12 +2,14 @@ import { Modal } from '@mui/material'
 import Panel from '../../../components/Panel/Panel'
 import DataTable from '../../../components/DataTable/DataTable'
 
-import FilterForm from '../../../components/Forms/Filter/FilterForm'
+import FilterForm from '../../../components/Forms/Filter/Fabrics/FilterForm'
 import SortingForm from '../../../components/Forms/Sorting/SortingForm'
 import VisibilityForm from '../../../components/Forms/Visibility/VisibilityForm'
 import TableLoader from '../../../components/Loaders/Table/TableLoader'
 
-const FabricsList = ({ isFilterVisible, setFilterVisible, showResetSort, resetSort, handleSort, showDeleteBtn, deleteRowsCount, onDelete, modal, openModal, closeModal, filterFields, register, onSubmit, reset, watch, errors, data, visibleColumns, setSelectedRows, dataTableColumns, visibilityFormFields, hanldeVisibiltySubmit, sortByOptions, sortOptions, sortModel, defaultSortingModel, isLoading }) => (
+const FabricsList = ({ isFilterVisible, setFilterVisible, showResetSort, resetSort, handleSort, showDeleteBtn, deleteRowsCount, onDelete, modal, openModal, closeModal,register, onSubmit, reset, watch, errors, data, visibleColumns, setSelectedRows, dataTableColumns, visibilityFormFields, hanldeVisibiltySubmit, sortByOptions, sortOptions, sortModel, defaultSortingModel, isLoading,
+materials,colors,control
+}) => (
     <div className='pb-8 pt-2'>
         <Panel
             isFilterVisible={isFilterVisible}
@@ -21,13 +23,15 @@ const FabricsList = ({ isFilterVisible, setFilterVisible, showResetSort, resetSo
             openModal={openModal}
         />
         <FilterForm
-            fields={filterFields}
             isVisible={isFilterVisible}
             register={register}
             onSubmit={onSubmit}
             reset={reset}
             watch={watch}
             errors={errors}
+            materials={materials}
+            colors={colors}
+            control={control}
         />
         <div>
             {
@@ -49,7 +53,7 @@ const FabricsList = ({ isFilterVisible, setFilterVisible, showResetSort, resetSo
                         }}
                         columns={dataTableColumns}
                         boxClass={
-                            (data?.data?.total && data.data.total > 10) ? 'h-[95vh]' : 'h-[50vh]'
+                            (data?.data?.total && data.data.total > 10) ? 'h-[95vh]' : 'h-[65vh]'
                         }
                     />
                 )

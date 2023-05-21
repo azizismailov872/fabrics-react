@@ -9,9 +9,11 @@ import useDelete from '../../../hooks/useDelete';
 import { FabricsService } from '../../../services/FabricsService';
 import useColumnsVisibility from '../../../hooks/useColumnsVisibility';
 import {dataTableColumns, defaultSortingModel, 
-        defaultVisibleColumns, filterFields, sortByOptions, 
+        defaultVisibleColumns,sortByOptions, 
         sortOptions, visibilityFormFields
 } from '../data';
+import { MaterialService } from '../../../services/MaterialService';
+import { ColorsService } from '../../../services/ColorsService';
 
 const getFilterVisibleValue = (searchParams) => {
     const params = Object.fromEntries(searchParams);
@@ -24,7 +26,7 @@ const getShowResetSortValue = (sortModel, defaultSortModel) => {
 }
 
 const FabricsListContainer = () => {
-    const { register, onSubmit, reset, watch, searchParams, errors } = useFilter()
+    const { register, onSubmit, reset, watch, searchParams, errors,control} = useFilter()
 
     const [isFilterVisible, setFilterVisible] = useState(getFilterVisibleValue(searchParams))
 
@@ -39,6 +41,18 @@ const FabricsListContainer = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['fabrics', searchParams.toString(), JSON.stringify(sortModel)],
         queryFn: () => FabricsService.getFabricsList(searchParams.toString(), sortModel),
+    })
+
+    const {data: colorsData,isLoading: isColorsLoading} = useQuery({
+        queryKey: ['getColorsList'],
+        queryFn: ColorsService.getColorsList,
+        refetchOnWindowFocus: false
+    })
+
+    const {data: materialsData,isLoading: isMaterialsLoading} = useQuery({
+        queryKey: ['getMaterialsList'],
+        queryFn: MaterialService.getMatrialsList,
+        refetchOnWindowFocus: false
     })
 
     const showResetSort = useMemo(() => getShowResetSortValue(sortModel, defaultSortingModel), [sortModel])
@@ -56,7 +70,6 @@ const FabricsListContainer = () => {
             modal={modal}
             openModal={openModal}
             closeModal={closeModal}
-            filterFields={filterFields}
             register={register}
             onSubmit={onSubmit}
             reset={reset}
@@ -72,7 +85,10 @@ const FabricsListContainer = () => {
             sortOptions={sortOptions}
             sortModel={sortModel}
             defaultSortingModel={defaultSortingModel}
-            isLoading={isLoading}
+            isLoading={(isLoading || isColorsLoading || isMaterialsLoading)}
+            colors={colorsData}
+            materials={materialsData}
+            control={control}
         />
     )
 }
