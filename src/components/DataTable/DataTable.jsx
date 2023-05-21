@@ -74,6 +74,7 @@ const DataTable = ({ data, columns,boxClass,gridStyles,visibleColumns, ...props 
                         slots={{
                             pagination: Pagination
                         }}
+                        hideFooterSelectedRowCount={true}
                         disableRowSelectionOnClick
                         {...props}
                     />
