@@ -10,13 +10,20 @@ import { toast } from 'react-hot-toast';
 import { createSchema } from '../../../validation/fabrics';
 import FormLoader from '../../../components/Loaders/Form/FormLoader';
 import FabricsCreate from './FabricsCreate';
+import { MaterialService } from '../../../services/MaterialService';
 
 
 const FabricsCreateContainer = () => {
 
-    const {data,isLoading} = useQuery({
+    const {data: colorsData,isLoading: isColorsLoading} = useQuery({
         queryKey: ['getColorsList'],
         queryFn: ColorsService.getColorsList,
+        refetchOnWindowFocus: false
+    })
+
+    const {data: materialsData,isLoading: isMaterialsLoading} = useQuery({
+        queryKey: ['getMaterialsList'],
+        queryFn: MaterialService.getMatrialsList,
         refetchOnWindowFocus: false
     })
 
@@ -56,12 +63,13 @@ const FabricsCreateContainer = () => {
         reset()
     }
 
-    return isLoading ? <FormLoader /> : (
+    return (isColorsLoading || isMaterialsLoading)  ? <FormLoader /> : (
         <FabricsCreate 
             register={register}
             control={control}
             errors={errors}
-            colorOptions={data?.data?.data ? data.data.data : []}
+            colorOptions={colorsData?.data?.data ? colorsData.data.data : []}
+            materialOptions={materialsData?.data?.data ? materialsData.data.data : []}
             onSubmit={handleSubmit(onSubmit)}
             onReset={onReset}
             modal={modal}

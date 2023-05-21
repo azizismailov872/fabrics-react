@@ -4,13 +4,18 @@ import Button from '../../../components/Button/Button'
 import Input from '../../../components/Form/Input/Input'
 import ColorForm from '../../../components/Forms/Color/ColorForm'
 import SelectChip from '../../../components/Form/SelectChip/SelectChip'
-import { Calculator, Dna, Hash, Palette } from "@phosphor-icons/react"
+import { Calculator, Dna, Hash, Palette, Scales } from "@phosphor-icons/react"
+import MaterialForm from '../../../components/Forms/Material/MaterialForm'
+import Select from '../../../components/Form/Select/Select'
 
-const FabricsCreate = ({ register, control, onSubmit, onReset, errors, colorOptions, modal, openModal, closeModal }) => (
+const FabricsCreate = ({ register, control, onSubmit, onReset, errors, colorOptions, materialOptions, modal, openModal, closeModal }) => (
     <div className='pb-8 pt-2'>
         <div className='flex justify-between mb-5 items-center'>
             <h2 className='text-xl font-medium md:text-2xl dark:text-primary-light text-dark-100'>Добавить модель</h2>
-            <button onClick={() => openModal('colorForm')} className='text-stone-400'>Добавить цвет +</button>
+            <div className='flex gap-3'>
+                <button onClick={() => openModal('colorForm')} className='text-stone-400'>Цвет +</button>
+                <button onClick={() => openModal('materialForm')} className='text-stone-400'>Материал +</button>
+            </div>
         </div>
         <form onSubmit={onSubmit} className='py-3 px-1'>
             <div className='flex flex-col md:flex-row md:flex-wrap gap-3'>
@@ -41,36 +46,61 @@ const FabricsCreate = ({ register, control, onSubmit, onReset, errors, colorOpti
                 </div>
                 <div className='grow md:grow-0 shrink-0 md:basis-[17rem]'>
                     <Input
-                        name="materials"
-                        label="Материалы"
-                        icon={Dna}
-                        inputProps={{ ...register('materials') }}
+                        name="weight"
+                        label="Вес (кг)"
+                        icon={Scales}
+                        inputProps={{ ...register('weight') }}
                         size="small"
+                        type="number"
                         className="w-full"
-                        error={!!errors.materials}
-                        errorMessage={errors?.materials?.message && errors?.materials?.message}
+                        error={!!errors.weight}
+                        errorMessage={errors?.weight?.message && errors.weight.message}
                     />
                 </div>
                 <div className='grow md:grow-0 shrink-0 md:basis-[17rem]'>
                     <Controller
                         render={({ field }) => (
-                            <SelectChip
+                            <Select
                                 {...field}
                                 size="small"
-                                label="Цвета"
+                                label="Материал"
+                                className="w-full"
+                                icon={Dna}
+                                minWidth="180px"
+                                optionLabel="name"
+                                optionValue="id"
+                                options={materialOptions}
+                                error={!!errors.material_id}
+                                errorMessage={errors?.material_id?.message && errors?.material_id?.message}
+                            />
+                        )
+                        }
+                        name="material_id"
+                        control={control}
+                        defaultValue=""
+                    />
+                </div>
+                <div className='grow md:grow-0 shrink-0 md:basis-[17rem]'>
+                    <Controller
+                        render={({ field }) => (
+                            <Select
+                                {...field}
+                                size="small"
+                                label="Цвет"
                                 className="w-full"
                                 icon={Palette}
                                 minWidth="180px"
                                 optionLabel="name"
+                                optionValue="id"
                                 options={colorOptions}
-                                error={!!errors.colors}
-                                errorMessage={errors?.colors?.message && errors?.colors?.message}
+                                error={!!errors.color_id}
+                                errorMessage={errors?.color_id?.message && errors?.color_id?.message}
                             />
                         )
                         }
-                        name="colors"
+                        name="color_id"
                         control={control}
-                        defaultValue={[]}
+                        defaultValue=""
                     />
                 </div>
             </div>
@@ -88,7 +118,11 @@ const FabricsCreate = ({ register, control, onSubmit, onReset, errors, colorOpti
                 alignItems: 'center',
             }}
         >
-            <ColorForm onSuccessFn={closeModal} />
+            {
+                modal.modal === 'colorForm' ?
+                    <ColorForm onSuccessFn={closeModal} /> : modal.modal === 'materialForm' ?
+                        <MaterialForm onSuccessFn={closeModal} /> : <div>No modal</div>
+            }
         </Modal>
     </div>
 )
