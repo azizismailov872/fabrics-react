@@ -11,10 +11,8 @@ import { isArray, map } from 'lodash';
 import FabricsUpdate from './FabricsUpdate';
 import { updateSchema } from '../../../validation/fabrics';
 import FormLoader from '../../../components/Loaders/Form/FormLoader';
+import { MaterialService } from '../../../services/MaterialService';
 
-const getFabricsColors = (fabricsColors) => {
-    return (isArray(fabricsColors) && fabricsColors.length > 0) ? map(fabricsColors, 'id') : []
-}
 
 const FabricsUpdateContainer = () => {
 
@@ -42,7 +40,6 @@ const FabricsUpdateContainer = () => {
             if(fabric && fabric?.data?.data) {
                 reset({
                     ...fabric.data.data,
-                    colors: getFabricsColors(fabric.data.data.colors)
                 })
             }
         }
@@ -52,6 +49,13 @@ const FabricsUpdateContainer = () => {
         queryKey: ['getColorsList'],
         queryFn: ColorsService.getColorsList,
         refetchOnWindowFocus: false,
+        onSuccess: colors => console.log('colors: ',colors)
+    })
+
+    const {data: materials,isLoading: isMaterialsLoading} = useQuery({
+        queryKey: ['getMaterialsList'],
+        queryFn: MaterialService.getMatrialsList,
+        refetchOnWindowFocus: false
     })
 
     const onSubmit = async(formData) => {
@@ -86,7 +90,7 @@ const FabricsUpdateContainer = () => {
         })
     }
 
-    return (isFabricLoading || isColorsLoading) ? <FormLoader /> : (
+    return (isFabricLoading || isColorsLoading || isMaterialsLoading) ? <FormLoader /> : (
         <FabricsUpdate 
             register={register}
             control={control}
@@ -94,6 +98,7 @@ const FabricsUpdateContainer = () => {
             onSubmit={handleSubmit(onSubmit)}
             onReset={onReset}
             colors={colors}
+            materials={materials}
             title={`Редактировать ${fabric.data.data.model}`}
             modal={modal}
             openModal={openModal}
