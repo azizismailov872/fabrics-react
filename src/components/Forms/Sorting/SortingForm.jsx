@@ -32,11 +32,16 @@ const SortingForm = ({sortByOptions,sortOptions,onSubmitFn,defaultValue,defaultS
                 <div className='flex flex-col'>
                     <div className='mb-4'>
                         <Controller
-                            render={({ field }) => <Select {...field} optionValue="value" options={sortByOptions} 
-                            label="Поле сортировки"
-                            fullWidth
-                            size="small"
-                            />}
+                            render={({ field }) => <Select 
+                                {...field} 
+                                optionValue="value" 
+                                optionLabel="label" 
+                                options={sortByOptions} 
+                                label="Поле сортировки"
+                                fullWidth
+                                size="small"
+                            />
+                            }
                             name="sortBy"
                             control={control}
                             defaultValue=""
@@ -44,11 +49,16 @@ const SortingForm = ({sortByOptions,sortOptions,onSubmitFn,defaultValue,defaultS
                     </div>
                     <div>
                         <Controller
-                            render={({ field }) => <Select {...field} optionValue="value" options={sortOptions} 
-                            label="Тип сортировки"
-                            fullWidth
-                            size="small"
-                            />}
+                            render={({ field }) => <Select 
+                                {...field} 
+                                optionValue="value" 
+                                optionLabel="label"
+                                options={sortOptions} 
+                                label="Тип сортировки"
+                                fullWidth
+                                size="small"
+                                />
+                            }
                             name="sort"
                             control={control}
                             defaultValue=""
