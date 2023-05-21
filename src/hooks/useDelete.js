@@ -30,6 +30,7 @@ const useDelete = (deleteFunction,updateClient) => {
                 toast.success(message, {
                     id: loadingTost,
                 });
+                setSelectedRows([])
             },
         })
     }
