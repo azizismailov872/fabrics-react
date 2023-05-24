@@ -1,10 +1,9 @@
-import { Plus, Eye, ArrowsDownUp, Trash, DotsThreeOutline } from '@phosphor-icons/react'
-import PanelButton from '../PanelButton/PanelButton'
-import '../../index.css'
-import { IconButton, Menu, MenuItem } from '@mui/material';
 import useMenu from '../../hooks/useMenu';
+import PanelButton from '../PanelButton/PanelButton'
+import { IconButton, Menu, MenuItem } from '@mui/material';
+import { Plus, Eye, ArrowsDownUp, Trash, DotsThreeOutline } from '@phosphor-icons/react'
 
-const Panel = ({ showResetSort, resetSort, isFilterVisible, setFilterVisible, modal, openModal, showDeleteBtn, onDelete, deleteRowsCount, ...props }) => {
+const Panel = ({ showFilterBtn, isFilterVisible, setFilterVisible, showSortBtn, showResetSort, resetSort, modal, openModal, showDeleteBtn, deleteBtnBorder, onDelete, deleteRowsCount, showVisibilityBtn, ...props }) => {
 
     const [open, anchorEl, handleClick, handleClose] = useMenu();
 
@@ -12,19 +11,35 @@ const Panel = ({ showResetSort, resetSort, isFilterVisible, setFilterVisible, mo
         <div className='p-2 bg-primary-light dark:bg-black-40 rounded-md mb-4'>
             <div className='flex items-center flex-wrap sm:flex-nowrap'>
                 <div className='flex gap-[10px]'>
-                    <PanelButton active={isFilterVisible} onClickFn={() => setFilterVisible(prev => !prev)} title="Открыть форму поиска">
-                        <Plus size={20} weight="bold" className='text-black-100 dark:text-primary-light' />
-                    </PanelButton>
-                    <PanelButton onClickFn={() => openModal('visibility')} onClose={modal.isOpen ? false : true} title="Показать/Скрыть поля">
-                        <Eye size={20} weight="bold" className={'text-black-100 dark:text-primary-light'} />
-                    </PanelButton>
-                    <PanelButton onClickFn={() => openModal('sorting')} onClose={modal.isOpen ? false : true} title="Сортировка">
-                        <ArrowsDownUp size={20} weight="bold" className='text-black-100 dark:text-primary-light' />
-                    </PanelButton>
+                    {
+                        showFilterBtn && (
+                            <PanelButton
+                                active={isFilterVisible}
+                                title="Открыть форму поиска"
+                                onClickFn={() => setFilterVisible(prev => !prev)}
+                            >
+                                <Plus size={20} weight="bold" className='text-black-100 dark:text-primary-light' />
+                            </PanelButton>
+                        )
+                    }
+                    {
+                        showVisibilityBtn && (
+                            <PanelButton onClickFn={() => openModal('visibility')} onClose={modal.isOpen ? false : true} title="Показать/Скрыть поля">
+                                <Eye size={20} weight="bold" className={'text-black-100 dark:text-primary-light'} />
+                            </PanelButton>
+                        )
+                    }
+                    {
+                        showSortBtn && (
+                            <PanelButton onClickFn={() => openModal('sorting')} onClose={modal.isOpen ? false : true} title="Сортировка">
+                                <ArrowsDownUp size={20} weight="bold" className='text-black-100 dark:text-primary-light' />
+                            </PanelButton>
+                        )
+                    }
                 </div>
                 {
                     showDeleteBtn && (
-                        <div className='border-l-2 border-l-black-80 dark:border-l-primary-light pl-2 ml-2 md:block hidden'>
+                        <div className={`${deleteBtnBorder ? 'pl-2 ml-2 border-l-2 border-l-black-80 dark:border-l-primary-light' : undefined}  md:block hidden`}>
                             <PanelButton toggable={false} title="Удалить" onClickFn={() => onDelete()}>
                                 <Trash className='text-black-100 dark:text-primary-light' size={20} weight="bold" />
                             </PanelButton>
@@ -32,10 +47,10 @@ const Panel = ({ showResetSort, resetSort, isFilterVisible, setFilterVisible, mo
                         </div>
                     )
                 }
-                {   
+                {
 
                     (showResetSort || showDeleteBtn) && (
-                        <div className='md:border-none border-l-2 border-l-black-80 dark:border-l-primary-light pl-2 ml-2 md:ml-auto'>
+                        <div className={`md:border-none pl-2 ml-2 md:ml-auto ${deleteBtnBorder ? 'border-l-2 border-l-black-80 dark:border-l-primary-light' : undefined}`}>
                             {
                                 showResetSort && (
                                     <button onClick={() => resetSort()} className='text-black-40 dark:text-white-40 whitespace-nowrap md:block  hidden'>Сбросить сортировку</button>

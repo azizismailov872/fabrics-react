@@ -21,6 +21,9 @@ materials,colors,control
             onDelete={onDelete}
             modal={modal}
             openModal={openModal}
+            showFilterBtn
+            showSortBtn
+            showVisibilityBtn
         />
         <FilterForm
             isVisible={isFilterVisible}
