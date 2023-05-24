@@ -8,7 +8,7 @@ import SelectChip from '../../../components/Form/SelectChip/SelectChip';
 import Select from '../../../components/Form/Select/Select';
 import MaterialForm from '../../../components/Forms/Material/MaterialForm';
 
-const FabricsUpdate = ({ register, control, errors, colors, materials, onSubmit, onReset, title, modal, openModal, closeModal }) => {
+const FabricsUpdate = ({ register, control, errors, colors, materials, onSubmit, onReset, title, modal, openModal, closeModal, isLoading }) => {
 
     return (
         <div className='pb-8 pt-2'>
@@ -111,7 +111,7 @@ const FabricsUpdate = ({ register, control, errors, colors, materials, onSubmit,
                     </div>
                 </div>
                 <div className='mt-4 flex gap-3'>
-                    <Button type="submit">Отправить</Button>
+                    <Button disabled={isLoading} type="submit">Отправить</Button>
                     <Button onClick={onReset} type="button" secondary>Очистить</Button>
                 </div>
             </form>

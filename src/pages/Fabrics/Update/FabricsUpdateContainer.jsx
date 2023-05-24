@@ -103,6 +103,7 @@ const FabricsUpdateContainer = () => {
             modal={modal}
             openModal={openModal}
             closeModal={closeModal}
+            isLoading={mutation.isLoading}
         />
     )
 }

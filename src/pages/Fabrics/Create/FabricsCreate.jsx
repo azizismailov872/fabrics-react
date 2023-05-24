@@ -8,7 +8,7 @@ import { Calculator, Dna, Hash, Palette, Scales } from "@phosphor-icons/react"
 import MaterialForm from '../../../components/Forms/Material/MaterialForm'
 import Select from '../../../components/Form/Select/Select'
 
-const FabricsCreate = ({ register, control, onSubmit, onReset, errors, colorOptions, materialOptions, modal, openModal, closeModal }) => (
+const FabricsCreate = ({ register, control, onSubmit, onReset, errors, colorOptions, materialOptions, modal, openModal, closeModal, isLoading }) => (
     <div className='pb-8 pt-2'>
         <div className='flex justify-between mb-5 items-center'>
             <h2 className='text-xl font-medium md:text-2xl dark:text-primary-light text-dark-100'>Добавить модель</h2>
@@ -105,7 +105,7 @@ const FabricsCreate = ({ register, control, onSubmit, onReset, errors, colorOpti
                 </div>
             </div>
             <div className='mt-4 flex gap-3'>
-                <Button type="submit">Отправить</Button>
+                <Button disabled={isLoading} type="submit">Отправить</Button>
                 <Button onClick={onReset} type="button" secondary>Очистить</Button>
             </div>
         </form>

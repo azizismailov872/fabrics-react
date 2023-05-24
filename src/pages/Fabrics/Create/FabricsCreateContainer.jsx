@@ -75,6 +75,7 @@ const FabricsCreateContainer = () => {
             modal={modal}
             openModal={openModal}
             closeModal={closeModal}
+            isLoading={mutation.isLoading}
         />
     )
 }
