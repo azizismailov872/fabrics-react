@@ -64,7 +64,8 @@ const MaterialsCreate = () => {
                     </div>
                 </div>
                 <div className='mt-4 flex gap-3'>
-                    <Button type="submit">Отправить</Button>
+                    <Button disabled={mutation.isLoading} type="submit">Отправить</Button>
+                    <Button secondary onClick={() => reset()} type="button">Очистить</Button>
                 </div>
             </form>
         </div>

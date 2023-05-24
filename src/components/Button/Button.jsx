@@ -17,11 +17,11 @@ const Button = ({type,isLoading,secondary = false,warning = false,minWidth,class
         <button 
             className={className ? className : `${warning ? warningStyles : secondary ? secondaryStyles : primaryStyles} ${base}`}  
             type={type} 
-            {...props}
             style={minWidth ? {
                 minWidth: minWidth
             } : undefined}
-        >
+            {...props}
+            >
              {
                     isLoading && <ClipLoader 
                             color={mode === 'light' ? '#fff' : '#1c1c1c'}

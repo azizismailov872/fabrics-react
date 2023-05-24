@@ -1,11 +1,10 @@
+import { Alert } from '@mui/material'
+import { toast } from 'react-hot-toast'
+import Button from '../../../components/Button/Button'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import React from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { MaterialService } from '../../../services/MaterialService'
 import FormLoader from '../../../components/Loaders/Form/FormLoader'
-import { Alert } from '@mui/material'
-import Button from '../../../components/Button/Button'
-import { toast } from 'react-hot-toast'
 
 const MaterialsView = () => {
 
@@ -50,7 +49,7 @@ const MaterialsView = () => {
             </div>
             <div className='flex gap-3'>
                 <Button><Link to={`/fabrics?material_id=${id}`}>Посмотреть ткани</Link></Button>
-                <Button onClick={onDelete} warning>Удалить</Button>
+                <Button disabled={mutation.isLoading} onClick={onDelete} warning>Удалить</Button>
             </div>
         </div>
     )

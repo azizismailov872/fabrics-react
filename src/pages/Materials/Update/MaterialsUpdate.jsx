@@ -83,7 +83,7 @@ const MaterialsUpdate = () => {
                     </div>
                 </div>
                 <div className='mt-4 flex gap-3'>
-                    <Button type="submit">Отправить</Button>
+                    <Button disabled={mutation.isLoading} type="submit">Отправить</Button>
                     <Button onClick={() => reset()} type="button" secondary>Очистить</Button>
                 </div>
             </form>
