@@ -1,4 +1,4 @@
-import { House,Plus,Palette,TShirt,Swatches,Truck,Scroll,Table,ArrowFatLineDown,ArrowFatLineUp,ArrowsDownUp  } from "@phosphor-icons/react";
+import { House,Plus,Palette,TShirt,Swatches,Truck,Scroll,Table,ArrowFatLineDown,ArrowFatLineUp,ArrowsDownUp, Dna  } from "@phosphor-icons/react";
 
 const menuList = [
     {
@@ -107,6 +107,12 @@ const menuList = [
     },
     {
         id: 7,
+        title: 'Материалы',
+        link: '/materials',
+        icon: Dna 
+    },
+    {
+        id: 8,
         title: 'Размеры',
         link: '/sizes',
         icon: Swatches

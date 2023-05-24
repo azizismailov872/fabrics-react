@@ -6,6 +6,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard/Dashboard'
 import Fabrics from './pages/Fabrics/Fabrics'
 import Products from './pages/Products/Products'
+import Materials from './pages/Materials/Materials'
 
 const App = () => {
 
@@ -18,6 +19,7 @@ const App = () => {
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/fabrics/*" element={<Fabrics />} />
                     <Route path="/products/*" element={<Products />} />
+                    <Route path="/materials/*" element={<Materials />} />
                     <Route path="/login" element={<Navigate to="/" />} />
                 </Routes>
             </Content>
