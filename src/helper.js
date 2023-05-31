@@ -1,3 +1,5 @@
+import { isEmpty } from "lodash";
+
 export const setErrors = (errors,setErrorFn) => {
     if(errors) {
         for(let error in errors) {
@@ -7,4 +9,14 @@ export const setErrors = (errors,setErrorFn) => {
             console.log('errorMessage: ',errors[error])
         }
     }
+}
+
+export const getFilterVisibleValue = (searchParams) => {
+    const params = Object.fromEntries(searchParams);
+    const { page, ...filterParams } = params
+    return !isEmpty(filterParams) ? true : false
+}
+
+export const getShowResetSortValue = (sortModel, defaultSortModel) => {
+    return JSON.stringify(sortModel) !== JSON.stringify(defaultSortModel) ? true : false
 }

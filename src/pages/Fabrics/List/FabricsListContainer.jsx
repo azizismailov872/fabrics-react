@@ -14,16 +14,8 @@ import {dataTableColumns, defaultSortingModel,
 } from '../data';
 import { MaterialService } from '../../../services/MaterialService';
 import { ColorsService } from '../../../services/ColorsService';
+import { getFilterVisibleValue, getShowResetSortValue } from '../../../helper';
 
-const getFilterVisibleValue = (searchParams) => {
-    const params = Object.fromEntries(searchParams);
-    const { page, ...filterParams } = params
-    return !isEmpty(filterParams) ? true : false
-}
-
-const getShowResetSortValue = (sortModel, defaultSortModel) => {
-    return JSON.stringify(sortModel) !== JSON.stringify(defaultSortModel) ? true : false
-}
 
 const FabricsListContainer = () => {
     const { register, onSubmit, reset, watch, searchParams, errors,control} = useFilter()

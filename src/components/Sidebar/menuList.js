@@ -50,26 +50,32 @@ const menuList = [
     {
         id: 4,
         title: 'Ввоз/Вывоз Тканей',
-        link: '/journal/fabrics',
+        link: '/logs/fabrics',
         icon: Truck,
         childrens: [
             {
                 id: 13,
                 title: 'Ввоз и вывоз',
-                link: '/journal/fabrics',
+                link: '/logs/fabrics',
                 icon: ArrowsDownUp
             },
             {
                 id: 14,
-                title: 'Ввоз тканей',
-                link: '/journal/fabrics/import',
+                title: 'Завоз тканей',
+                link: '/logs/fabrics/imports',
                 icon: ArrowFatLineDown
             },
             {
                 id: 15,
                 title: 'Вывоз тканей',
-                link: '/journal/fabrics/export',
+                link: '/logs/fabrics/exports',
                 icon: ArrowFatLineUp
+            },
+            {
+                id: 12,
+                title: 'Добавить запись',
+                link: '/logs/fabrics/create',
+                icon: Plus
             },
         ]
     },
@@ -103,13 +109,41 @@ const menuList = [
         id: 6,
         title: 'Цвета',
         link: '/colors',
-        icon: Palette 
+        icon: Palette,
+        childrens: [
+            {
+                id: 19,
+                title: 'Все цвета',
+                link: '/colors',
+                icon: Table
+            },
+            {
+                id: 20,
+                title: 'Добавить цвет',
+                link: '/colors/create',
+                icon: Plus
+            },
+        ] 
     },
     {
         id: 7,
         title: 'Материалы',
         link: '/materials',
-        icon: Dna 
+        icon: Dna,
+        childrens: [
+            {
+                id: 19,
+                title: 'Все материалы',
+                link: '/materials',
+                icon: Table
+            },
+            {
+                id: 20,
+                title: 'Добавить материал',
+                link: '/materials/create',
+                icon: Plus
+            },
+        ]  
     },
     {
         id: 8,

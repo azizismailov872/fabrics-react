@@ -88,12 +88,12 @@ export const dataTableColumns = [
         flex: 1,
         sortable: false,
         disableColumnMenu: true,
-        renderCell: ({row: {color}}) => {
+        renderCell: ({row: {color,color_id}}) => {
             return (
                 <div>
                     <span>
                         {
-                            typeof color === 'string' ? color : color ? color.name : 'Не указано'
+                            typeof color === 'string' ? <Link className="text-sky-700" to={`/fabrics?color_id=${color_id}`}>{color}</Link> : color ? <Link  className="text-sky-700" to={`/fabrics?color_id=${color_id}`}>{color.name}</Link> : 'Не указано'
                         }
                     </span>
                 </div>
@@ -107,12 +107,13 @@ export const dataTableColumns = [
         flex: 1,
         sortable: false,
         disableColumnMenu: true,
-        renderCell: ({row: {material}}) => {
+        renderCell: ({row: {material,material_id}}) => {
             return (
                 <div>
                     <span>
                         {
-                            (typeof material === 'string') ? material : material  ? material.name : 'Не укзаано'
+                            (typeof material === 'string') ? <Link  className="text-sky-700" to={`/fabrics?material_id=${material_id}`}>{material}</Link>  
+                            : material  ? <Link className="text-sky-700" to={`/fabrics?material_id=${material_id}`}>{material.name}</Link> : 'Не укзаано'
                         }
                     </span>
                 </div>
